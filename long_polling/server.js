@@ -45,7 +45,6 @@ function betsStream(request, response){
 		sendClientBets(response, clientBets);
 	}
 	else {
-		console.log('clients push');
 		clients.push({response, id: params.id});
 	}
 }
@@ -61,11 +60,7 @@ function randomBet(){
 }
 
 function checkClients(){
-	let k = 1;
-	console.log(`clients length = ${clients.length}`);
 	clients.forEach(data => {
-		console.log(`check k = ${k}`);
-		k++;
 		let clientBets = getClientBets(data.id);
 		if (clientBets.length > 0) {
 			sendClientBets(data.response, clientBets);
@@ -84,13 +79,10 @@ function sendClientBets(response, clientBets){
 }
 
 function cleanClient(response){
-	console.log('cleanClient');
 	let ind = clients.findIndex(client => client.response === response);
-	console.log(`ind = ${ind}`);
 	if(ind !== -1){
 		clients.splice(ind, 1);
 	}
-	console.log(`clients.length = ${clients.length}`);
 }
 
 randomBet();
