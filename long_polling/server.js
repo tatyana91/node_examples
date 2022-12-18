@@ -5,7 +5,7 @@ const clients = [];
 const bets = [];
 
 const server = http.createServer(function(request, response){
-	request.connection.addListener('close', function () {
+	response.addListener('close', function () {
 		cleanClient(response);
 	});
 
@@ -64,7 +64,6 @@ function checkClients(){
 		let clientBets = getClientBets(data.id);
 		if (clientBets.length > 0) {
 			sendClientBets(data.response, clientBets);
-			cleanClient(data.response);
 		}
 	});
 }
