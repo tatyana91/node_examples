@@ -1,13 +1,6 @@
-import { readFile } from 'fs'
-
-export default (request, response, parsedUrl) => {
-	readFile('./app/views/index.html', (err, buffer) => {
-		if(err !== null){
-			response.writeHead(500);
-			response.end('error');
-		}
-		else{
-			response.end(buffer.toString());
-		}
+export default (request, response) => {
+	response.render('home', {
+		layout: false,
+		title: 'Home page'
 	});
 }

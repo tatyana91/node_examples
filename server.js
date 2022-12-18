@@ -2,9 +2,15 @@ import { config } from 'dotenv'
 config();
  
 import { PORT } from './app/config/app.js'
+import { VIEW_DIR, VIEW_ENGINE, VIEW_ENGINE_NAME } from './app/config/view.js'
 import express from 'express'
 
 const server = express();
+
+server.engine(VIEW_ENGINE_NAME, VIEW_ENGINE);
+server.set('views', VIEW_DIR)
+server.set('view engine', VIEW_ENGINE_NAME)
+
 server.listen(PORT);
 
 import homePage from './app/controllers/home.js'
