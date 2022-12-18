@@ -1,0 +1,29 @@
+{
+  "name": "1-hw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "magic": "nodemon server.js --inspect"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "mariadb": "^3.0.2",
+    "sequelize": "^6.27.0"
+  },
+  "imports": {
+    "#app/*": {
+      "default": "./app/*"
+    }
+  }
+}
