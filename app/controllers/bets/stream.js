@@ -1,13 +1,21 @@
-import { getBets } from '#app/stores/bets.js';
 import eventBus from '#app/core/eventbus.js'
-import BetsAppendEvent from '#app/events/bets/apennd.js'
+import BetsAppendEvent from '#app/events/bets/append.js'
+import { Op } from 'sequelize'
+import Bet from '#app/models/bet.js'
 
 const clients = [];
 eventBus.on(BetsAppendEvent.name, e => clients.forEach(client => sendBetsToClient(client, [ e.bet ])));
 
-export default (request, response) => {
+export default async (request, response) => {
 	const fromId = parseInt(request.query.id ?? '0');
-	let immediatelyBets = getBets().filter(bet => bet.id > fromId);
+	let immediatelyBets = await Bet.findAll({
+		where: {
+			id: {
+				[ Op.gt ]: fromId
+			}
+		}
+	});
+
 	const client = { request, response, created: new Date() };
 
 	if(immediatelyBets.length > 0){

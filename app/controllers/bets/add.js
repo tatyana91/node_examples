@@ -1,11 +1,11 @@
-import { addBet, getBets } from '#app/stores/bets.js'
+import Bets from '#app/models/bet.js';
+import BetAppendEvent from '#app/events/bets/append.js'
 
-export default (request, response) => {
-	let bets = getBets();
-	let id = bets.length > 0 ? bets[bets.length - 1].id : 0;
-	++id;
-	let bet = { id, value: id * 1000, time: Date.now() };
-	addBet(bet);
-	
-	response.end(JSON.stringify(true));
+export default async (request, response) => {
+	let bet = await Bets.create({
+		value: 1000
+	});
+
+	new BetAppendEvent(bet);
+	response.end(JSON.stringify(true)); 
 }

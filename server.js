@@ -1,6 +1,5 @@
-import { config } from 'dotenv'
-config();
- 
+import 'dotenv/config'
+
 import { PORT } from './app/config/app.js'
 import { VIEW_DIR, VIEW_ENGINE, VIEW_ENGINE_NAME } from './app/config/view.js'
 import express from 'express'
