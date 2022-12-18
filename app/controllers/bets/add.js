@@ -1,6 +1,6 @@
-import { addBet, getBets } from '#app/stores/bets.js';
+import { addBet, getBets } from '#app/stores/bets.js'
 
-export default (request, response, parsedUrl) => {
+export default (request, response) => {
 	let bets = getBets();
 	let id = bets.length > 0 ? bets[bets.length - 1].id : 0;
 	++id;

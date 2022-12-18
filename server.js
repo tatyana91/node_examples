@@ -1,17 +1,18 @@
 import { config } from 'dotenv'
 config();
+ 
+import { PORT } from './app/config/app.js'
+import express from 'express'
 
-import http from 'http';
-import { PORT } from '#app/config/app.js'
-import { runRouter, addRoute } from '#app/router/index.js'
-
-const server = http.createServer(runRouter);
+const server = express();
 server.listen(PORT);
 
 import homePage from './app/controllers/home.js'
-import betsStreamPage from './app/controllers/bets/stream.js'
+import betsStreamPage, { debug as betsStreamPageDebug } from './app/controllers/bets/stream.js'
 import betsAddPage from './app/controllers/bets/add.js'
 
-addRoute('/', homePage);
-addRoute('/bets', betsStreamPage);
-addRoute('/bets/add', betsAddPage);
+server.use(express.static('public'));
+server.get('/', homePage);
+server.get('/bets', betsStreamPage);
+server.get('/bets/add', betsAddPage);
+server.get('/bets/clients-debug', betsStreamPageDebug);
